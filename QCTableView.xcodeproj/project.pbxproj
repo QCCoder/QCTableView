@@ -10,6 +10,7 @@
 		4A34C8654D62DCED5D1062CF /* Pods_QCTableView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C8CBB222DD4211B1807200CE /* Pods_QCTableView.framework */; };
 		D632F87D20E6191F00878F83 /* QCListUtil.m in Sources */ = {isa = PBXBuildFile; fileRef = D632F87C20E6191F00878F83 /* QCListUtil.m */; };
 		D632F88020E6231700878F83 /* QCAbnormalModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D632F87F20E6231700878F83 /* QCAbnormalModel.m */; };
+		D67ECB8F211989FD008C08ED /* QCListView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = D67ECB8E211989FD008C08ED /* QCListView.podspec */; };
 		D6A1D32720E4B5B100F5D594 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A1D32620E4B5B100F5D594 /* AppDelegate.m */; };
 		D6A1D32A20E4B5B100F5D594 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D6A1D32920E4B5B100F5D594 /* ViewController.m */; };
 		D6A1D32D20E4B5B100F5D594 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D6A1D32B20E4B5B100F5D594 /* Main.storyboard */; };
@@ -28,6 +29,7 @@
 		D632F87C20E6191F00878F83 /* QCListUtil.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCListUtil.m; sourceTree = "<group>"; };
 		D632F87E20E6231700878F83 /* QCAbnormalModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = QCAbnormalModel.h; sourceTree = "<group>"; };
 		D632F87F20E6231700878F83 /* QCAbnormalModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = QCAbnormalModel.m; sourceTree = "<group>"; };
+		D67ECB8E211989FD008C08ED /* QCListView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = QCListView.podspec; sourceTree = "<group>"; };
 		D6A1D32220E4B5B100F5D594 /* QCTableView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QCTableView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6A1D32520E4B5B100F5D594 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		D6A1D32620E4B5B100F5D594 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -75,6 +77,7 @@
 		D6A1D31920E4B5B100F5D594 = {
 			isa = PBXGroup;
 			children = (
+				D67ECB8E211989FD008C08ED /* QCListView.podspec */,
 				D6A1D32420E4B5B100F5D594 /* QCTableView */,
 				D6A1D32320E4B5B100F5D594 /* Products */,
 				939033558DB35BE8F6E5CB57 /* Pods */,
@@ -184,6 +187,7 @@
 				D6A1D32F20E4B5B300F5D594 /* Assets.xcassets in Resources */,
 				D6A1D36020E4DA7000F5D594 /* QCTableView.bundle in Resources */,
 				D6A1D32D20E4B5B100F5D594 /* Main.storyboard in Resources */,
+				D67ECB8F211989FD008C08ED /* QCListView.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -215,13 +219,17 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-QCTableView/Pods-QCTableView-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/DGActivityIndicatorView/DGActivityIndicatorView.framework",
 				"${BUILT_PRODUCTS_DIR}/DZNEmptyDataSet/DZNEmptyDataSet.framework",
 				"${BUILT_PRODUCTS_DIR}/MJRefresh/MJRefresh.framework",
+				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGActivityIndicatorView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DZNEmptyDataSet.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MJRefresh.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

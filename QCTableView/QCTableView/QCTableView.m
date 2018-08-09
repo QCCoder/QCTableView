@@ -66,7 +66,7 @@
         self.loadingModel.image = [UIImage imageNamed:@"QCTableView.bundle/empty"];
         self.loadingModel.spaceHeight = 0.0;
         self.loadingModel.verticalOffset = -100.0;
-        self.loadingModel.shouldDisplay = YES;
+        self.loadingModel.shouldDisplay = NO;
         self.loadingModel.shouldAllowTouch = YES;
         self.loadingModel.shouldAllowScroll = YES;
         self.loadingModel.shouldAnimateImage = NO;
@@ -86,7 +86,7 @@
 {
     if (!_errorModel) {
         self.errorModel = [[QCAbnormalModel alloc]init];
-        self.errorModel.title = [QCListUtil getAttribute:@"服务器错误" font:[UIFont systemFontOfSize:16.0] textColor:[QCListUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
+        self.errorModel.title = [QCListUtil getAttribute:@"加载失败" font:[UIFont systemFontOfSize:16.0] textColor:[QCListUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
         self.errorModel.image = [UIImage imageNamed:@"QCTableView.bundle/empty"];
         self.errorModel.spaceHeight = 0.0;
         self.errorModel.verticalOffset = -100.0;
@@ -150,31 +150,29 @@
 }
 
 - (void)loadFooterData{
-    [self loadNewData];
+    [self loadMoreData];
 }
 
 - (void)loadHeaderData{
-    [self loadFooterData];
+    [self loadNewData];
 }
 
 - (void)refreshHeader {
-    switch (self.state) {
-        case QCTableViewStateLoading: //加载错误，无数据状态，移除header和footer
-        case QCTableViewStateEmpty:
-        case QCTableViewStateError:
-            [self removeHeaderRefreshView];
-            [self removeFooterRefreshView];
-            break;
-        case QCTableViewStateNormal: {
-            [self setupHeaderRefresh];
-            [self setupFooterRefresh];
-            break;
-        }
-        default:
-            break;
-    }
+//    switch (self.state) {
+//        case QCTableViewStateLoading: //加载错误，无数据状态，移除header和footer
+//        case QCTableViewStateEmpty:
+//        case QCTableViewStateError:
+//            break;
+//        case QCTableViewStateNormal: {
+//            [self setupHeaderRefresh];
+//            [self setupFooterRefresh];
+//            break;
+//        }
+//        default:
+//            break;
+//    }
     
-    if (self.mj_header) {
+    if (self.mj_header && self.state != QCTableViewStateLoading) {
         [self.mj_header endRefreshing];
     }
 }
@@ -202,18 +200,35 @@
 
 #pragma mark 下拉刷新
 - (void)setupHeaderRefresh {
-    if (!self.mj_header && self.headerRefresh) {
-        __weak __typeof(self) weakSelf = self;
-        self.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
-            [weakSelf loadNewData];
-        }];
-    }
+    __weak __typeof(self) weakSelf = self;
+    self.mj_header = [MJRefreshNormalHeader headerWithRefreshingBlock:^{
+        [weakSelf loadNewData];
+    }];
 }
+
+-(void)setHeaderRefresh:(void (^)(QCTableView *))headerRefresh{
+    _headerRefresh = headerRefresh;
+    [self setupHeaderRefresh];
+}
+
 - (void)loadNewData {
-    if (self.headerRefresh) {
+    if (self.headerRefresh != nil) {
         self.headerRefresh(self);
     }
 }
+
+- (void)loadHeaderDataWithAnimation{
+    if (self.mj_header != nil) {
+        [self.mj_header beginRefreshing];
+    }
+}
+
+- (void)loadMoreData {
+    if (self.footerRefresh) {
+        self.footerRefresh(self);
+    }
+}
+
 -(void)removeFooterRefreshView{
     self.mj_footer = nil;
 }
@@ -227,11 +242,7 @@
         }];
     }
 }
-- (void)loadMoreData {
-    if (self.footerRefresh) {
-        self.footerRefresh(self);
-    }
-}
+
 -(void)removeHeaderRefreshView{
     self.mj_header = nil;
 }
@@ -274,6 +285,7 @@
         self.state = QCTableViewStateEmpty;
         [self reloadAbnormalView];
     }else{
+        self.state = QCTableViewStateNormal;
         [self reloadData];
     }
 }
@@ -287,6 +299,7 @@
             self.errorModel = model;
         }
     }
+    [self reloadData];
     [self reloadEmptyDataSet];
 }
 
@@ -422,12 +435,6 @@
     if ([self.qcAbnormalDelegate respondsToSelector:@selector(qcTableView:customViewForAbnormalView:)]) {
         view = [self.qcAbnormalDelegate qcTableView:self customViewForAbnormalView:self.state];
     }
-
-    if (view == nil && self.state == QCTableViewStateLoading){
-        UIActivityIndicatorView *activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        [activityView startAnimating];
-        return activityView;
-    }
     return view;
 }
 
@@ -443,7 +450,7 @@
     }else{
         self.state = QCTableViewStateLoading;
         [self reloadAbnormalView];
-        [self loadNewData];
+        [self loadHeaderDataWithAnimation];
     }
 }
 

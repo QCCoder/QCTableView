@@ -108,7 +108,8 @@ typedef enum : NSUInteger {
 /**
  *  开始加载数据
  */
--(void)loadHeaderData;
+- (void)loadHeaderData;
+- (void)loadHeaderDataWithAnimation;
 
 /**
  *  开始加载数据
