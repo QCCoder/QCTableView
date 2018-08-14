@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "QCListUtil.h"
-#import "QCAbnormalModel.h"
+#import "QCTableViewUtil.h"
+#import "QCTableViewModel.h"
 
 typedef enum : NSUInteger {
     QCRefreshTypeRefresh,     //刷新数据
@@ -55,7 +55,7 @@ typedef enum : NSUInteger {
 @optional
 
 //content
-- (QCAbnormalModel *)qcTableView:(QCTableView *)tableView modelForAbnormalView:(QCAbnormalModel *)abnormalModel state:(QCTableViewState)state;
+- (QCTableViewModel *)qcTableView:(QCTableView *)tableView modelForAbnormalView:(QCTableViewModel *)abnormalModel state:(QCTableViewState)state;
 - (nullable UIView *)qcTableView:(QCTableView *)tableView customViewForAbnormalView:(QCTableViewState)state;
 
 //tap

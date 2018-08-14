@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface QCListUtil : NSObject
+@interface QCTableViewUtil : NSObject
 
 + (UIColor *)colorWithHex:(NSString *)string;
 

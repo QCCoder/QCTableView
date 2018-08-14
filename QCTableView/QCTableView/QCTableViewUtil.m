@@ -6,9 +6,9 @@
 //  Copyright © 2018年 钱城. All rights reserved.
 //
 
-#import "QCListUtil.h"
+#import "QCTableViewUtil.h"
 
-@implementation QCListUtil
+@implementation QCTableViewUtil
 
 #pragma mark 自定义方法
 + (NSAttributedString *)getAttribute:(NSString *)title font:(UIFont *)font textColor:(UIColor *)textColor lineSpacing:(CGFloat)lineSpacing{

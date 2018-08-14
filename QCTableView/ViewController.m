@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 #import "QCTableView.h"
-#import "DGActivityIndicatorView.h"
-#import "Masonry.h"
 
 @interface ViewController ()<QCTableViewDelegate,QCTableViewDataSource,QCTableViewAbnormalDelegate>
 
