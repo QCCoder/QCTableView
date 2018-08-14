@@ -22,8 +22,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
-    
     QCTableView *tableView = [[QCTableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
     tableView.qcDataSource = self;
