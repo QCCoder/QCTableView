@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "04781575AD63328AA4C02DB3BFE29D96"
+               BlueprintIdentifier = "324A74558FCE643E1189283424AAC07F"
                BuildableName = "Pods_QCTableView.framework"
                BlueprintName = "Pods-QCTableView"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -45,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "04781575AD63328AA4C02DB3BFE29D96"
+            BlueprintIdentifier = "324A74558FCE643E1189283424AAC07F"
             BuildableName = "Pods_QCTableView.framework"
             BlueprintName = "Pods-QCTableView"
             ReferencedContainer = "container:Pods.xcodeproj">
