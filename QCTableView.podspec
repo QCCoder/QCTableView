@@ -22,7 +22,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'QCTableView/QCTableView/**/*'
   s.public_header_files = 'QCTableView/QCTableView/**/*.h'
+  s.resources = 'QCTableView/QCTableView/QCTableView.bundle'
   s.dependency 'MJRefresh'
   s.dependency 'DZNEmptyDataSet'
-
 end
