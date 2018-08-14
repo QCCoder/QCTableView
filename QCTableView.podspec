@@ -7,11 +7,11 @@
 #
 
 Pod::Spec.new do |s|
-  s.name         = "QCListView"
+  s.name         = "QCTableView"
   s.version      = "1.0.0"
   s.summary      = "Lib of QC."
   s.description  = <<-DESC
-                    Lib of QCListView.
+                    Lib of QCTableView.
                    DESC
 
   s.homepage     = "https://github.com/QCCoder"
