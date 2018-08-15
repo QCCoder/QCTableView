@@ -6,8 +6,8 @@
 //  Copyright © 2018年 钱城. All rights reserved.
 //
 
-#import "QCAbnormalModel.h"
+#import "QCTableViewModel.h"
 
-@implementation QCAbnormalModel
+@implementation QCTableViewModel
 
 @end

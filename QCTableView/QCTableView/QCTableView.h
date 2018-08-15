@@ -8,14 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
-#import "QCListUtil.h"
-#import "QCAbnormalModel.h"
+#import "QCTableViewUtil.h"
+#import "QCTableViewModel.h"
 
 typedef enum : NSUInteger {
-    QCRefreshTypeRefresh,     //刷新数据
-    QCRefreshTypeLoadNewData, //下啦刷新
-    QCRefreshTypeLoadMore     //加载更多
-} QCRefreshType;
+    QCTableViewRefreshTypeRefresh,     //刷新数据
+    QCTableViewRefreshTypeLoadNewData, //下啦刷新
+    QCTableViewRefreshTypeLoadMore     //加载更多
+} QCTableViewRefreshType;
 
 typedef enum : NSUInteger {
     QCTableViewStateNormal,   //正常
@@ -55,7 +55,7 @@ typedef enum : NSUInteger {
 @optional
 
 //content
-- (QCAbnormalModel *)qcTableView:(QCTableView *)tableView modelForAbnormalView:(QCAbnormalModel *)abnormalModel state:(QCTableViewState)state;
+- (QCTableViewModel *)qcTableView:(QCTableView *)tableView modelForAbnormalView:(QCTableViewModel *)abnormalModel state:(QCTableViewState)state;
 - (nullable UIView *)qcTableView:(QCTableView *)tableView customViewForAbnormalView:(QCTableViewState)state;
 
 //tap
@@ -86,7 +86,7 @@ typedef enum : NSUInteger {
  *  请求成功时调用，传入数组.
  *  若 data,count = 0 显示无数据界面
  */
-- (void)refreshWithList:(NSArray *)data refreshType:(QCRefreshType)type;
+- (void)refreshWithList:(NSArray *)data refreshType:(QCTableViewRefreshType)type;
 
 /**
  *  获取新数据，刷新时会调用这个block

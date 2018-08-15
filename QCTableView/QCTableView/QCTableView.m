@@ -13,13 +13,13 @@
 
 @property (nonatomic,assign) QCTableViewState state;
 
-@property (nonatomic,strong) QCAbnormalModel *emptyModel;
+@property (nonatomic,strong) QCTableViewModel *emptyModel;
 
-@property (nonatomic,strong) QCAbnormalModel *loadingModel;
+@property (nonatomic,strong) QCTableViewModel *loadingModel;
 
-@property (nonatomic,strong) QCAbnormalModel *errorModel;
+@property (nonatomic,strong) QCTableViewModel *errorModel;
 
-@property (nonatomic,strong,readonly) QCAbnormalModel *currentModel;
+@property (nonatomic,strong,readonly) QCTableViewModel *currentModel;
 
 @end
 
@@ -34,11 +34,11 @@
     return _datalist;
 }
 
--(QCAbnormalModel *)emptyModel
+-(QCTableViewModel *)emptyModel
 {
     if (!_emptyModel) {
-        self.emptyModel = [[QCAbnormalModel alloc]init];
-        self.emptyModel.title = [QCListUtil getAttribute:@"暂无数据" font:[UIFont systemFontOfSize:16.0] textColor:[QCListUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
+        self.emptyModel = [[QCTableViewModel alloc]init];
+        self.emptyModel.title = [QCTableViewUtil getAttribute:@"暂无数据" font:[UIFont systemFontOfSize:16.0] textColor:[QCTableViewUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
         self.emptyModel.image = [UIImage imageNamed:@"QCTableView.bundle/empty"];
         self.emptyModel.spaceHeight = 0.0;
         self.emptyModel.verticalOffset = -100.0;
@@ -58,11 +58,11 @@
     return _emptyModel;
 }
 
--(QCAbnormalModel *)loadingModel
+-(QCTableViewModel *)loadingModel
 {
     if (!_loadingModel) {
-        self.loadingModel = [[QCAbnormalModel alloc]init];
-        self.loadingModel.backgroundColor = [QCListUtil colorWithHex:@"f5f5f5"];
+        self.loadingModel = [[QCTableViewModel alloc]init];
+        self.loadingModel.backgroundColor = [QCTableViewUtil colorWithHex:@"f5f5f5"];
         self.loadingModel.image = [UIImage imageNamed:@"QCTableView.bundle/empty"];
         self.loadingModel.spaceHeight = 0.0;
         self.loadingModel.verticalOffset = -100.0;
@@ -82,11 +82,11 @@
     return _loadingModel;
 }
 
--(QCAbnormalModel *)errorModel
+-(QCTableViewModel *)errorModel
 {
     if (!_errorModel) {
-        self.errorModel = [[QCAbnormalModel alloc]init];
-        self.errorModel.title = [QCListUtil getAttribute:@"加载失败" font:[UIFont systemFontOfSize:16.0] textColor:[QCListUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
+        self.errorModel = [[QCTableViewModel alloc]init];
+        self.errorModel.title = [QCTableViewUtil getAttribute:@"加载失败" font:[UIFont systemFontOfSize:16.0] textColor:[QCTableViewUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
         self.errorModel.image = [UIImage imageNamed:@"QCTableView.bundle/empty"];
         self.errorModel.spaceHeight = 0.0;
         self.errorModel.verticalOffset = -100.0;
@@ -158,19 +158,6 @@
 }
 
 - (void)refreshHeader {
-//    switch (self.state) {
-//        case QCTableViewStateLoading: //加载错误，无数据状态，移除header和footer
-//        case QCTableViewStateEmpty:
-//        case QCTableViewStateError:
-//            break;
-//        case QCTableViewStateNormal: {
-//            [self setupHeaderRefresh];
-//            [self setupFooterRefresh];
-//            break;
-//        }
-//        default:
-//            break;
-//    }
     
     if (self.mj_header && self.state != QCTableViewStateLoading) {
         [self.mj_header endRefreshing];
@@ -251,29 +238,29 @@
 - (void)refreshWithError:(NSString *)error{
     self.state = QCTableViewStateError;
     if (error.length > 0) {
-        self.errorModel.title = [QCListUtil getAttribute:error font:[UIFont systemFontOfSize:16.0] textColor:[QCListUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
+        self.errorModel.title = [QCTableViewUtil getAttribute:error font:[UIFont systemFontOfSize:16.0] textColor:[QCTableViewUtil colorWithHex:@"b9b9b9"] lineSpacing:1.0];
     }
     self.datalist = [NSArray array];
     [self reloadAbnormalView];
 }
 
-- (void)refreshWithList:(NSArray *)data refreshType:(QCRefreshType)type{
+- (void)refreshWithList:(NSArray *)data refreshType:(QCTableViewRefreshType)type{
     if (!data) {
         data = [NSArray array];
     }
     
     NSMutableArray *datalist = [NSMutableArray arrayWithArray:self.datalist];
     switch (type) {
-        case QCRefreshTypeRefresh:
+        case QCTableViewRefreshTypeRefresh:
             datalist = [NSMutableArray arrayWithArray:data];
             break;
-        case QCRefreshTypeLoadNewData:{
+        case QCTableViewRefreshTypeLoadNewData:{
             NSRange range = NSMakeRange(0, data.count);
             NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
             [datalist insertObjects:data atIndexes:indexSet];
             break;
         }
-        case QCRefreshTypeLoadMore:
+        case QCTableViewRefreshTypeLoadMore:
             [datalist addObjectsFromArray:data];
             break;
         default:
@@ -292,7 +279,7 @@
 
 - (void)reloadAbnormalView{
     if([self.qcAbnormalDelegate respondsToSelector:@selector(qcTableView:modelForAbnormalView:state:)]) {
-        QCAbnormalModel *model = [self.qcAbnormalDelegate qcTableView:self modelForAbnormalView:self.emptyModel state:self.state];
+        QCTableViewModel *model = [self.qcAbnormalDelegate qcTableView:self modelForAbnormalView:self.emptyModel state:self.state];
         if (self.state == QCTableViewStateEmpty) {
             self.emptyModel = model;
         }else if (self.state == QCTableViewStateError) {
@@ -303,7 +290,7 @@
     [self reloadEmptyDataSet];
 }
 
--(QCAbnormalModel *)currentModel{
+-(QCTableViewModel *)currentModel{
     if (self.state == QCTableViewStateError) {
         return self.errorModel;
     }else if (self.state == QCTableViewStateLoading) {

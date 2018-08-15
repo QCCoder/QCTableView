@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 
-@interface QCAbnormalModel : NSObject
+@interface QCTableViewModel : NSObject
 
 @property (nonatomic,strong) NSAttributedString *title;
 @property (nonatomic,strong) NSAttributedString *desc;

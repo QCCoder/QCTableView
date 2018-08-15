@@ -8,8 +8,6 @@
 
 #import "ViewController.h"
 #import "QCTableView.h"
-#import "DGActivityIndicatorView.h"
-#import "Masonry.h"
 
 @interface ViewController ()<QCTableViewDelegate,QCTableViewDataSource,QCTableViewAbnormalDelegate>
 
@@ -21,8 +19,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     
     QCTableView *tableView = [[QCTableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
