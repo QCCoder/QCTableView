@@ -12,10 +12,10 @@
 #import "QCTableViewModel.h"
 
 typedef enum : NSUInteger {
-    QCRefreshTypeRefresh,     //刷新数据
-    QCRefreshTypeLoadNewData, //下啦刷新
-    QCRefreshTypeLoadMore     //加载更多
-} QCRefreshType;
+    QCTableViewRefreshTypeRefresh,     //刷新数据
+    QCTableViewRefreshTypeLoadNewData, //下啦刷新
+    QCTableViewRefreshTypeLoadMore     //加载更多
+} QCTableViewRefreshType;
 
 typedef enum : NSUInteger {
     QCTableViewStateNormal,   //正常
@@ -86,7 +86,7 @@ typedef enum : NSUInteger {
  *  请求成功时调用，传入数组.
  *  若 data,count = 0 显示无数据界面
  */
-- (void)refreshWithList:(NSArray *)data refreshType:(QCRefreshType)type;
+- (void)refreshWithList:(NSArray *)data refreshType:(QCTableViewRefreshType)type;
 
 /**
  *  获取新数据，刷新时会调用这个block

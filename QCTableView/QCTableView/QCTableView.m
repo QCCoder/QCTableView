@@ -158,19 +158,6 @@
 }
 
 - (void)refreshHeader {
-//    switch (self.state) {
-//        case QCTableViewStateLoading: //加载错误，无数据状态，移除header和footer
-//        case QCTableViewStateEmpty:
-//        case QCTableViewStateError:
-//            break;
-//        case QCTableViewStateNormal: {
-//            [self setupHeaderRefresh];
-//            [self setupFooterRefresh];
-//            break;
-//        }
-//        default:
-//            break;
-//    }
     
     if (self.mj_header && self.state != QCTableViewStateLoading) {
         [self.mj_header endRefreshing];
@@ -257,23 +244,23 @@
     [self reloadAbnormalView];
 }
 
-- (void)refreshWithList:(NSArray *)data refreshType:(QCRefreshType)type{
+- (void)refreshWithList:(NSArray *)data refreshType:(QCTableViewRefreshType)type{
     if (!data) {
         data = [NSArray array];
     }
     
     NSMutableArray *datalist = [NSMutableArray arrayWithArray:self.datalist];
     switch (type) {
-        case QCRefreshTypeRefresh:
+        case QCTableViewRefreshTypeRefresh:
             datalist = [NSMutableArray arrayWithArray:data];
             break;
-        case QCRefreshTypeLoadNewData:{
+        case QCTableViewRefreshTypeLoadNewData:{
             NSRange range = NSMakeRange(0, data.count);
             NSIndexSet *indexSet = [NSIndexSet indexSetWithIndexesInRange:range];
             [datalist insertObjects:data atIndexes:indexSet];
             break;
         }
-        case QCRefreshTypeLoadMore:
+        case QCTableViewRefreshTypeLoadMore:
             [datalist addObjectsFromArray:data];
             break;
         default:
