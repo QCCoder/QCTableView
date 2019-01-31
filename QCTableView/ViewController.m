@@ -7,11 +7,12 @@
 //
 
 #import "ViewController.h"
-#import "QCTableView.h"
+#import "DGActivityIndicatorView.h"
+#import "UITableView+QCDataSource.h"
+@interface ViewController ()
 
-@interface ViewController ()<QCTableViewDelegate,QCTableViewDataSource,QCTableViewAbnormalDelegate>
-
-@property (weak, nonatomic) QCTableView *tableVIew;
+//@property (weak, nonatomic) QCTableView *tableVIew;
+@property (weak, nonatomic) UITableView *tableView;
 
 @end
 
@@ -20,55 +21,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    QCTableView *tableView = [[QCTableView alloc] initWithFrame:CGRectMake(0, 0, 375, 667) style:UITableViewStylePlain];
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStylePlain];
     [self.view addSubview:tableView];
-    tableView.qcDataSource = self;
-    tableView.qcDelegate = self;
-    tableView.qcAbnormalDelegate = self;
-    __weak __typeof__(self) weakSelf = self;
-    tableView.headerRefresh = ^(QCTableView *tableView) {
-        [weakSelf loadData];
+    [tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"QCTableViewCell"];
+    self.tableView = tableView;
+
+    [tableView qc_addDataSourceAndEmptySourceWithIdentifier:@"QCTableViewCell" cellConfig:^(UITableViewCell *cell, NSIndexPath *indexPath, id sectionModel) {
+        cell.textLabel.text = [NSString stringWithFormat:@"第%ld行 第%ld列",indexPath.section,indexPath.row];
+    } didSelect:^(id view, NSIndexPath *indexPath, id sectionModel) {
+        NSLog(@"didSelect");
+        if (indexPath.row == 0) {
+            [tableView qc_reloadDataWithList:@[@"列表",@"失败",@"空白页",@"加载动画"] type:QCRefreshTypeRefresh];
+        }else if (indexPath.row == 1) {
+            [tableView qc_reloadDataWithError:@"请求失败"];
+        }else if (indexPath.row == 2) {
+            [tableView qc_reloadDataWithList:@[] type:QCRefreshTypeRefresh];
+        }else{
+            [tableView qc_loadDataWithAnimation];
+        }
+    }];
+
+//    tableView.qc_emptyDataSetForError = ^QCEmptyModel *(QCEmptyModel *model) {
+//        model.spaceHeight = 100;
+//        return model;
+//    };
+//    tableView.qc_emptyDataSetForLoading = ^QCEmptyModel *(QCEmptyModel *model) {
+//        model.spaceHeight = 100;
+//        return model;
+//    };
+//    tableView.qc_emptyDataSetForEmpty = ^QCEmptyModel *(QCEmptyModel *model) {
+//        model.spaceHeight = 100;
+//        return model;
+//    };
+    
+    tableView.qc_headerRefresh = ^(UITableView *tableView) {
+        [tableView qc_reloadDataWithList:@[@"列表",@"失败",@"空白页",@"加载动画"] type:QCRefreshTypeRefresh];
     };
-    [tableView loadHeaderDataWithAnimation];
-    self.tableVIew = tableView;
+    [tableView qc_loadData];
+    
+//    tableView.qc_emptyDataSetDidTapView = ^(UIScrollView *scrollView, UIView *view) {
+//        NSLog(@"空白页点击");
+//    };
 }
-
-- (void)loadData{
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [self.tableVIew refreshWithError:@"加载错误"];
-//        [self.tableVIew refreshWithList:@[@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1",@"1"] refreshType:QCRefreshTypeRefresh];
-    });
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
--(UITableViewCell *)qcTableView:(QCTableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return [UITableViewCell new];
-}
-
-//-(UIView *)qcTableView:(QCTableView *)tableView customViewForAbnormalView:(QCTableViewState)state{
-//    if (state == QCTableViewStateLoading) {
-//        CGSize size = [[UIScreen mainScreen] bounds].size;
-//
-//        UIView *purpleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 375, 200)];
-//        purpleView.backgroundColor = [UIColor purpleColor];
-//
-//        CGFloat width = size.width  / 3.0f;
-//        CGFloat height = size.height / 5.0f;
-//
-//        DGActivityIndicatorView *activityIndicatorView = [[DGActivityIndicatorView alloc] initWithType:DGActivityIndicatorAnimationTypeBallSpinFadeLoader tintColor:[UIColor redColor] size:70];
-//        activityIndicatorView.frame = CGRectMake(305 * 0.5, 0, 70, 70);
-//        [purpleView addSubview:activityIndicatorView];
-//
-//        return purpleView;
-//    }
-//
-//    return nil;
-//}
-
 
 @end

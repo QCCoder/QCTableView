@@ -1,20 +1,24 @@
 PODS:
+  - DGActivityIndicatorView (2.1.1)
   - DZNEmptyDataSet (1.8.1)
   - MJRefresh (3.1.15.3)
 
 DEPENDENCIES:
+  - DGActivityIndicatorView
   - DZNEmptyDataSet (~> 1.8.1)
   - MJRefresh (~> 3.1.15.3)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - DGActivityIndicatorView
     - DZNEmptyDataSet
     - MJRefresh
 
 SPEC CHECKSUMS:
+  DGActivityIndicatorView: ff2c76073d79692f724863c8dd38685866a03cb6
   DZNEmptyDataSet: 9525833b9e68ac21c30253e1d3d7076cc828eaa7
   MJRefresh: b48380ae2b927b46c4ef000de9adb8dc748e1df7
 
-PODFILE CHECKSUM: 83d4b7c76c9fa77c17908252a94c21422ce6f056
+PODFILE CHECKSUM: 662b2f6f492fa1fa4949ddc127e00ed583a93f09
 
 COCOAPODS: 1.5.3
